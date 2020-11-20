@@ -15,7 +15,11 @@ export class TemplateComponent {
   // ngOnInit(): void {}
 
   save(template: NgForm): void {
-    console.log(template)
-    console.log(template.value)
+    if (template.invalid) {
+      Object.values(template.controls).forEach((control) => {
+        control.markAsTouched()
+      })
+      return
+    }
   }
 }
