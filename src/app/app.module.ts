@@ -7,9 +7,11 @@ import { AppComponent } from './app.component'
 import { TemplateComponent } from './pages/template/template.component'
 import { ReactiveComponent } from './pages/reactive/reactive.component'
 
+import { HttpClientModule } from '@angular/common/http'
+
 @NgModule({
   declarations: [AppComponent, TemplateComponent, ReactiveComponent],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent]
 })
