@@ -8,7 +8,13 @@ import { CountriesService } from '../../services/countries.service'
   styleUrls: ['./template.component.styl']
 })
 export class TemplateComponent implements OnInit {
-  user = { name: '', last: '', mail: '', country: '' }
+  user = {
+    name: 'Alejandra',
+    last: 'Camacho',
+    mail: 'alex@me.com',
+    country: 'MEX',
+    gender: 'Femenino'
+  }
   countries = []
   constructor(private countrieService: CountriesService) {}
 
