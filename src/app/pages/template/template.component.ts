@@ -29,7 +29,5 @@ export class TemplateComponent implements OnInit {
       })
       return
     }
-
-    console.log(template.value)
   }
 }
