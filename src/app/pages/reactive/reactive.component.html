@@ -57,22 +57,22 @@
       <div class="col">
         <input
           type="text"
-          name="street"
-          id="street"
+          name="state"
+          id="state"
           class="form-control"
           placeholder="Calle"
-          formControlName="street"
-          [class.is-invalid]="streetInvalid"
+          formControlName="state"
+          [class.is-invalid]="stateInvalid"
         />
-        <small *ngIf="streetInvalid" class="text-danger"
+        <small *ngIf="stateInvalid" class="text-danger"
           >Ingrese una dirección valida</small
         >
       </div>
       <div class="col">
         <input
           type="text"
-          name="street"
-          id="street"
+          name="city"
+          id="city"
           class="form-control"
           placeholder="Ciudad"
           formControlName="city"

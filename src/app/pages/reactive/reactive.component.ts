@@ -12,6 +12,7 @@ export class ReactiveComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {
     this.createForm()
+    this.loadData()
   }
 
   ngOnInit(): void {
@@ -30,10 +31,10 @@ export class ReactiveComponent implements OnInit {
     return this.forma.get('mail').invalid && this.forma.get('mail').touched
   }
 
-  get streetInvalid(): boolean {
+  get stateInvalid(): boolean {
     return (
-      this.forma.get('address.street').invalid &&
-      this.forma.get('address.street').touched
+      this.forma.get('address.state').invalid &&
+      this.forma.get('address.state').touched
     )
   }
 
@@ -50,9 +51,21 @@ export class ReactiveComponent implements OnInit {
       last: ['', Validators.required],
       mail: ['', [Validators.required, Validators.pattern(this.patt)]],
       address: this.fb.group({
-        street: ['', Validators.required],
+        state: ['', Validators.required],
         city: ['', Validators.required]
       })
+    })
+  }
+
+  loadData(): void {
+    this.forma.setValue({
+      name: 'Alex',
+      last: 'Camacho',
+      mail: 'alex@me.com',
+      address: {
+        state: 'Jalisco',
+        city: 'Zapopan'
+      }
     })
   }
 
@@ -68,5 +81,12 @@ export class ReactiveComponent implements OnInit {
         }
       })
     }
+
+    // Posteo de la información
+
+    // Reset datos
+    this.forma.reset({
+      name: 'no name'
+    })
   }
 }
