@@ -62,7 +62,11 @@
           class="form-control"
           placeholder="Calle"
           formControlName="street"
+          [class.is-invalid]="streetInvalid"
         />
+        <small *ngIf="streetInvalid" class="text-danger"
+          >Ingrese una dirección valida</small
+        >
       </div>
       <div class="col">
         <input
@@ -72,7 +76,11 @@
           class="form-control"
           placeholder="Ciudad"
           formControlName="city"
+          [class.is-invalid]="cityInvalid"
         />
+        <small *ngIf="cityInvalid" class="text-danger"
+          >Ingrese una ciudad valido</small
+        >
       </div>
     </div>
   </div>

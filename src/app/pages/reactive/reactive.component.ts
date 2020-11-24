@@ -30,6 +30,20 @@ export class ReactiveComponent implements OnInit {
     return this.forma.get('mail').invalid && this.forma.get('mail').touched
   }
 
+  get streetInvalid(): boolean {
+    return (
+      this.forma.get('address.street').invalid &&
+      this.forma.get('address.street').touched
+    )
+  }
+
+  get cityInvalid(): boolean {
+    return (
+      this.forma.get('address.city').invalid &&
+      this.forma.get('address.city').touched
+    )
+  }
+
   createForm(): void {
     this.forma = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
@@ -45,7 +59,13 @@ export class ReactiveComponent implements OnInit {
   save(): void {
     if (this.forma.invalid) {
       return Object.values(this.forma.controls).forEach((control) => {
-        control.markAsTouched()
+        if (control instanceof FormGroup) {
+          Object.values(control.controls).forEach((control) =>
+            control.markAsTouched()
+          )
+        } else {
+          control.markAsTouched()
+        }
       })
     }
   }
