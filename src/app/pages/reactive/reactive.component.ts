@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 @Component({
   selector: 'app-reactive',
@@ -17,6 +17,10 @@ export class ReactiveComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('object')
+  }
+
+  get hobbies(): FormArray {
+    return this.forma.get('hobbies') as FormArray
   }
 
   get nameInvalid(): boolean {
@@ -53,12 +57,22 @@ export class ReactiveComponent implements OnInit {
       address: this.fb.group({
         state: ['', Validators.required],
         city: ['', Validators.required]
-      })
+      }),
+      hobbies: this.fb.array([])
     })
   }
 
+  addHobbie(): void {
+    this.hobbies.push(this.fb.control('', Validators.required))
+  }
+
+  deleteHobbie(index: number): void {
+    this.hobbies.removeAt(index)
+  }
+
   loadData(): void {
-    this.forma.setValue({
+    // this.forma.setValue
+    this.forma.reset({
       name: 'Alex',
       last: 'Camacho',
       mail: 'alex@me.com',
