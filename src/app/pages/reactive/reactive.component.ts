@@ -14,6 +14,7 @@ export class ReactiveComponent {
   constructor(private fb: FormBuilder, private validator: ValidatorsService) {
     this.createForm()
     this.loadData()
+    this.createListeners()
   }
 
   get hobbies(): FormArray {
@@ -30,6 +31,10 @@ export class ReactiveComponent {
 
   get mailInvalid(): boolean {
     return this.forma.get('mail').invalid && this.forma.get('mail').touched
+  }
+
+  get userInvalid(): boolean {
+    return this.forma.get('user').invalid && this.forma.get('user').touched
   }
 
   get stateInvalid(): boolean {
@@ -63,6 +68,7 @@ export class ReactiveComponent {
         name: ['', [Validators.required, Validators.minLength(4)]],
         last: ['', [Validators.required, this.validator.noCamacho]],
         mail: ['', [Validators.required, Validators.pattern(this.patt)]],
+        user: ['', , this.validator.isUser],
         pass1: ['', Validators.required],
         pass2: ['', Validators.required],
         address: this.fb.group({
@@ -89,13 +95,27 @@ export class ReactiveComponent {
     // this.forma.setValue
     this.forma.reset({
       name: 'Alex',
-      last: 'Camacho',
+      last: 'Camachoz',
       mail: 'alex@me.com',
+      pass1: 123,
+      pass2: 123,
       address: {
         state: 'Jalisco',
         city: 'Zapopan'
       }
     })
+  }
+
+  createListeners(): void {
+    // this.forma.valueChanges.subscribe((value) => {
+    //   console.log(value)
+    // })
+
+    // this.forma.statusChanges.subscribe((status) => {
+    //   console.log({ status })
+    // })
+
+    this.forma.get('name').valueChanges.subscribe(console.log)
   }
 
   save(): void {
