@@ -46,17 +46,35 @@ export class ReactiveComponent {
     )
   }
 
+  get pass1Invalid(): boolean {
+    return this.forma.get('pass1').invalid && this.forma.get('pass1').touched
+  }
+
+  get pass2Invalid(): boolean {
+    const pass1 = this.forma.get('pass1').value
+    const pass2 = this.forma.get('pass2').value
+
+    return pass1 === pass2 ? false : true
+  }
+
   createForm(): void {
-    this.forma = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(4)]],
-      last: ['', [Validators.required, this.validator.noCamacho]],
-      mail: ['', [Validators.required, Validators.pattern(this.patt)]],
-      address: this.fb.group({
-        state: ['', Validators.required],
-        city: ['', Validators.required]
-      }),
-      hobbies: this.fb.array([])
-    })
+    this.forma = this.fb.group(
+      {
+        name: ['', [Validators.required, Validators.minLength(4)]],
+        last: ['', [Validators.required, this.validator.noCamacho]],
+        mail: ['', [Validators.required, Validators.pattern(this.patt)]],
+        pass1: ['', Validators.required],
+        pass2: ['', Validators.required],
+        address: this.fb.group({
+          state: ['', Validators.required],
+          city: ['', Validators.required]
+        }),
+        hobbies: this.fb.array([])
+      },
+      {
+        validators: this.validator.shouldBeTheSame('pass1', 'pass2')
+      }
+    )
   }
 
   addHobbie(): void {
