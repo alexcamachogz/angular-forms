@@ -1,22 +1,19 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { ValidatorsService } from 'src/app/services/validators.service'
 
 @Component({
   selector: 'app-reactive',
   templateUrl: './reactive.component.html',
   styleUrls: ['./reactive.component.styl']
 })
-export class ReactiveComponent implements OnInit {
+export class ReactiveComponent {
   forma: FormGroup
   patt = '[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private validator: ValidatorsService) {
     this.createForm()
     this.loadData()
-  }
-
-  ngOnInit(): void {
-    console.log('object')
   }
 
   get hobbies(): FormArray {
@@ -52,7 +49,7 @@ export class ReactiveComponent implements OnInit {
   createForm(): void {
     this.forma = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
-      last: ['', Validators.required],
+      last: ['', [Validators.required, this.validator.noCamacho]],
       mail: ['', [Validators.required, Validators.pattern(this.patt)]],
       address: this.fb.group({
         state: ['', Validators.required],
